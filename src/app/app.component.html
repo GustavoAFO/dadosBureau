@@ -1,20 +1,130 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="http://angularjs.blogspot.ca/">Angular blog</a></h2>
-  </li>
-</ul>
+<header>
 
+  <div class="navbar navbar-dark bg-dark box-shadow">
+    <div class="container d-flex justify-content-between">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <!--<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>-->
+        <strong>BUREAU</strong>
+      </a>
+      <!--
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader"
+        aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapsed()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      -->
+    </div>
+  </div>
+  <!--
+  <div class="collapse bg-dark" id="navbarHeader" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+
+  </div>
+  -->
+</header>
+
+<main role="main">
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Projeto Bureau</h1>
+      <p class="lead text-muted">Projeto desenvolvido para população da base de dados do projeto bureau</p>
+      <h4 class="card-text">Nível: {{nivel}}</h4>
+
+      <h4 class="card-text">{{breadcumVisible}}</h4>
+      <!-- <ul>
+        <li *ngFor="let todo of (items | async)" [class.done]="todo.done">
+         {{ todo | json }}
+          {{todo.payload.node_.children_.root_.key}}
+          {{todo.id}}
+        </li>
+      </ul>-->
+
+      <!-- 
+      <p>
+        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      </p>
+      -->
+    </div>
+    <p></p>
+
+
+  </section>
+
+
+
+
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of (items | async)" (click)="afundar(item)">
+          <div class="card mb-4 box-shadow" *ngIf="item.dado">
+            <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
+            <div class="card-body">
+              <h4 class="card-text">{{item.dado}}</h4>
+              <!--
+              <h5 class="card-text">Habilidades:</h5>
+
+              <div class="gigante">
+                <span class="col-sm-4 " *ngFor="let ab of result.abilities">
+                  {{ab.ability.name}}
+                </span>
+              </div>
+
+              <h5 class="card-text">Ataques:</h5>
+
+              <div class="gigante">
+                <span class="col-sm-4 " *ngFor="let move of result.moves">
+                  {{move.move.name}}
+                </span>
+              </div>
+
+              <h5 class="card-text">Espécie:</h5>
+              <span class="col-sm-4" *ngFor="let type of result.types">
+                {{type.type.name}}
+              </span>
+
+              
+              <div class="col-sm-12" style="padding-top: 20px">
+                <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModal" (click)="toggleModal(result)">
+                  Ver Informações completas
+                </button>
+              </div>
+              -->
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+
+
+    <div class="col-sm-12" style="padding-top: 20px">
+      <input type="text" class="form-control col-sm-12" [(ngModel)]="txtDado" placeholder="Dado" aria-label="Pokemon" >
+    </div>
+
+    <div class="col-sm-12" style="padding-top: 20px">
+      <button type="button" class="btn btn-primary col-sm-12" (click)="addCourse()">
+        Adicionar
+      </button>
+    </div>
+
+
+
+  </div>
+
+</main>
+
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Voltar ao topo</a>
+    </p>
+
+  </div>
+</footer>
