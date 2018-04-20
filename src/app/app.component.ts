@@ -13,8 +13,8 @@ export class AppComponent {
   items: Observable<any[]>;
   atual = 'base';
   nivel = 0;
-  breadcum = 'base';
-  breadcumVisible = 'base';
+  breadcrumb = 'base';
+  breadcrumbVisible: any[] = [];
   txtDado = '';
 
   coursesObservable: AngularFireList<any[]>;
@@ -27,6 +27,10 @@ export class AppComponent {
     // this.coursesObservable = this.getCoursesTeste();
     // console.log(this.coursesObservable);
 
+    this.breadcrumbVisible.push({
+      'nome': 'base',
+      'key': 'base'
+    });
 
     this.items = this.getCourses();
 
@@ -68,12 +72,41 @@ export class AppComponent {
   }
 
   afundar(item) {
-    this.breadcum = this.breadcum + '/' + item.id;
-    this.breadcumVisible = this.breadcumVisible + '/' + item.dado;
+    this.txtDado = '';
+
+    this.breadcrumb = this.breadcrumb + '/' + item.id;
+    // this.breadcrumbVisible = this.breadcrumbVisible + '/' + item.dado;
+
+    this.breadcrumbVisible.push({
+      'nome': item.dado,
+      'key': item.id
+    });
+
     console.log(item);
     this.nivel++;
-    this.atual = this.breadcum;
+    this.atual = this.breadcrumb;
     this.items = this.getCourses();
 
+  }
+
+  abrir(item) {
+    this.breadcrumb = '';
+
+    this.breadcrumbVisible.forEach(teste => {
+      if (this.breadcrumbVisible.indexOf(teste) <= this.breadcrumbVisible.indexOf(item)) {
+        // console.log(teste.nome + ' index: ' + this.breadcrumbVisible.indexOf(teste));
+        this.breadcrumb = this.breadcrumb + '/' + teste.key;
+
+      } else {
+        this.breadcrumbVisible.splice(this.breadcrumbVisible.indexOf(teste));
+      }
+
+    });
+
+    // console.log(this.breadcrumbVisible.length);
+    this.nivel = this.breadcrumbVisible.length;
+    this.nivel--;
+    this.atual = this.breadcrumb;
+    this.items = this.getCourses();
   }
 }

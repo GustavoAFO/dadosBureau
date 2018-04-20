@@ -29,7 +29,18 @@
       <p class="lead text-muted">Projeto desenvolvido para população da base de dados do projeto bureau</p>
       <h4 class="card-text">Nível: {{nivel}}</h4>
 
-      <h4 class="card-text">{{breadcumVisible}}</h4>
+      <!--
+      <h4 class="card-text">{{breadcrumbVisible}}</h4>
+      -->
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" *ngFor="let item of breadcrumbVisible">
+            <a href="#" (click)="abrir(item)">{{item.nome}}</a>
+          </li>
+        </ol>
+      </nav>
+
       <!-- <ul>
         <li *ngFor="let todo of (items | async)" [class.done]="todo.done">
          {{ todo | json }}
@@ -103,9 +114,13 @@
       </div>
     </div>
 
+    
+
+
+
 
     <div class="col-sm-12" style="padding-top: 20px">
-      <input type="text" class="form-control col-sm-12" [(ngModel)]="txtDado" placeholder="Dado" aria-label="Pokemon" >
+      <input type="text" class="form-control col-sm-12" [(ngModel)]="txtDado" placeholder="Dado" aria-label="Pokemon">
     </div>
 
     <div class="col-sm-12" style="padding-top: 20px">
