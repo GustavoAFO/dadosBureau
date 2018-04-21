@@ -47,7 +47,7 @@
           </div>
 
 
-          <div class="col-md-4" *ngIf="item.tipo == 'Texto'" >
+          <div class="col-md-4" *ngIf="item.tipo == 'Texto'">
             <div class="card mb-12 box-shadow">
               <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
               <div class="card-body" *ngIf="item.tipo == 'Texto'" style="min-height: 430px;">
@@ -57,7 +57,7 @@
           </div>
 
 
-          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg'" >
+          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg'">
             <div class="card mb-12 box-shadow">
               <div class="card-body" style="min-height: 430px;">
                 <img class="card-img-top" src="{{item.url}}" alt="{{item.nome}}">
@@ -65,13 +65,27 @@
             </div>
           </div>
 
-          <div class="col-md-4" *ngIf="item.tipo == 'application/pdf'" >
+          <div class="col-md-4" *ngIf="item.tipo == 'application/pdf'">
             <div class="card mb-12 box-shadow">
               <div class="card-body" style="min-height: 430px;">
                 <a href="{{item.url}}">
-                    <h4 class="card-text">{{item.nome}}</h4>
-                    <img class="card-img-top" src="assets/documentsCover.png" alt="{{item.nome}}">
+                  <h4 class="card-text">{{item.nome}}</h4>
+                  <img class="card-img-top" src="assets/documentsCover.png" alt="{{item.nome}}">
                 </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4" *ngIf="item.tipo == 'Video'">
+            <div class="card mb-12 box-shadow">
+              <div class="card-body" style="min-height: 430px;">
+
+                <h4 class="card-text">{{item.titulo}}</h4>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" [src]="item.embed | safe" allowfullscreen></iframe>
+                </div>
+
+
               </div>
             </div>
           </div>
@@ -143,7 +157,7 @@
             <h5 class="mb-0">
               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
                 aria-controls="collapseFour">
-                Inserir Arquivos (Imagem, documentos, etc)
+                Inserir Arquivos (Imagens, documentos, etc)
               </button>
             </h5>
           </div>
@@ -173,7 +187,7 @@
             <h5 class="mb-0">
               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
                 aria-controls="collapseThree">
-                Inserir Video (AINDA NAO FUNCIONA)
+                Inserir Videos
               </button>
             </h5>
           </div>
@@ -187,7 +201,7 @@
               </div>
 
               <div class="col-sm-12" style="padding-top: 20px">
-                <button type="button" class="btn btn-primary col-sm-12">
+                <button type="button" class="btn btn-primary col-sm-12" (click)="addInfoVideo()">
                   Adicionar
                 </button>
               </div>

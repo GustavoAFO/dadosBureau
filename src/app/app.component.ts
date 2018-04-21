@@ -3,6 +3,16 @@ import { FirebaseConfig } from './../environments/firebase.config';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable'
 import * as firebase from 'firebase';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer} from '@angular/platform-browser';
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 @Component({
   selector: 'app-root',
@@ -20,6 +30,8 @@ export class AppComponent {
   chcFinal = false;
   txtInfo = '';
   basePath = '/uploads';
+  txtTitulo = '';
+  txtLink = '';
 
   selectedFiles: FileList;
   progress: { percentage: number } = { percentage: 0 }
@@ -48,6 +60,9 @@ export class AppComponent {
 
 
   }
+
+
+
 
   // ------------------------
 
@@ -119,6 +134,20 @@ export class AppComponent {
     this.db.list('/' + this.atual).push({
       tipo: 'Texto',
       valor: this.txtInfo
+    })
+  }
+
+  addInfoVideo() {
+    const embed = this.txtLink.split('v=');
+    console.log(embed);
+    const embedado = 'https://www.youtube.com/embed/' + embed[1];
+    console.log(embedado);
+
+    this.db.list('/' + this.atual).push({
+      tipo: 'Video',
+      titulo: this.txtTitulo,
+      link: this.txtLink,
+      embed: embedado
     })
   }
 
