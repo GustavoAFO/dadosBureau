@@ -69,52 +69,32 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-md-4" *ngFor="let item of (items | async)" (click)="afundar(item)">
-          <div class="card mb-4 box-shadow" *ngIf="item.dado">
+        <div class="col-md-4" *ngFor="let item of (items | async)" (click)="afundar(item)" >
+          <div class="card mb-4 box-shadow" *ngIf="item.dado" style="cursor:pointer;">
             <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
             <div class="card-body">
               <h4 class="card-text">{{item.dado}}</h4>
-              <!--
-              <h5 class="card-text">Habilidades:</h5>
-
-              <div class="gigante">
-                <span class="col-sm-4 " *ngFor="let ab of result.abilities">
-                  {{ab.ability.name}}
-                </span>
-              </div>
-
-              <h5 class="card-text">Ataques:</h5>
-
-              <div class="gigante">
-                <span class="col-sm-4 " *ngFor="let move of result.moves">
-                  {{move.move.name}}
-                </span>
-              </div>
-
-              <h5 class="card-text">Espécie:</h5>
-              <span class="col-sm-4" *ngFor="let type of result.types">
-                {{type.type.name}}
-              </span>
-
-              
-              <div class="col-sm-12" style="padding-top: 20px">
-                <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModal" (click)="toggleModal(result)">
-                  Ver Informações completas
-                </button>
-              </div>
-              -->
-
             </div>
           </div>
         </div>
 
+      </div>
 
 
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of (items | async)" >
+          <div class="card mb-4 box-shadow" *ngIf="item.tipo">
+            <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
+            <div class="card-body" *ngIf="item.tipo == 'Texto'">
+              <textarea class="form-control" disabled rows="3" >{{item.valor}}</textarea>
+            </div>
+          </div>
+        </div>
 
       </div>
 
 
-      <div class="accordion" id="accordion">
+      <div class="accordion" id="accordion" style="padding-top:150px">
         <div class="card">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
@@ -148,7 +128,7 @@
             <h5 class="mb-0">
               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
                 aria-controls="collapseTwo">
-                Inserir Informações (AINDA NAO FUNCIONA)
+                Inserir Informações
               </button>
             </h5>
           </div>
@@ -162,7 +142,7 @@
 
 
               <div class="col-sm-12" style="padding-top: 20px">
-                <button type="button" class="btn btn-primary col-sm-12">
+                <button type="button" class="btn btn-primary col-sm-12" (click)="addInfoText()">
                   Adicionar
                 </button>
               </div>
@@ -188,7 +168,7 @@
               </div>
 
               <div class="col-sm-12" style="padding-top: 20px">
-                <button type="button" class="btn btn-primary col-sm-12" >
+                <button type="button" class="btn btn-primary col-sm-12">
                   Adicionar
                 </button>
               </div>
@@ -214,7 +194,7 @@
               </div>
 
               <div class="col-sm-12" style="padding-top: 20px">
-                <button type="button" class="btn btn-primary col-sm-12" >
+                <button type="button" class="btn btn-primary col-sm-12">
                   Adicionar
                 </button>
               </div>

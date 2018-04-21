@@ -17,6 +17,7 @@ export class AppComponent {
   breadcrumbVisible: any[] = [];
   txtDado = '';
   chcFinal = false;
+  txtInfo = '';
 
   coursesObservable: AngularFireList<any[]>;
 
@@ -73,6 +74,13 @@ export class AppComponent {
       dado: this.txtDado,
       final: this.chcFinal
     });
+  }
+
+  addInfoText() {
+    this.db.list('/' + this.atual).push({
+      tipo: 'Texto',
+      valor: this.txtInfo
+    })
   }
 
   afundar(item) {
