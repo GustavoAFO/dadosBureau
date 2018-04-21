@@ -45,24 +45,33 @@
               </div>
             </div>
           </div>
-        </ng-container>
 
-        <ng-container *ngFor="let item of (items | async)">
-          <div class="col-md-4" *ngIf="item.tipo == 'Texto'">
+
+          <div class="col-md-4" *ngIf="item.tipo == 'Texto'" >
             <div class="card mb-12 box-shadow">
               <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
-              <div class="card-body" *ngIf="item.tipo == 'Texto'">
-                <textarea class="form-control" disabled rows="3">{{item.valor}}</textarea>
+              <div class="card-body" *ngIf="item.tipo == 'Texto'" style="min-height: 430px;">
+                <textarea class="form-control" disabled rows="3" style="height: 358px;">{{item.valor}}</textarea>
               </div>
             </div>
           </div>
-        </ng-container>
 
-        <ng-container *ngFor="let item of (items | async)">
-          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg'">
+
+          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg'" >
             <div class="card mb-12 box-shadow">
-              <div class="card-body">
+              <div class="card-body" style="min-height: 430px;">
                 <img class="card-img-top" src="{{item.url}}" alt="{{item.nome}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4" *ngIf="item.tipo == 'application/pdf'" >
+            <div class="card mb-12 box-shadow">
+              <div class="card-body" style="min-height: 430px;">
+                <a href="{{item.url}}">
+                    <h4 class="card-text">{{item.nome}}</h4>
+                    <img class="card-img-top" src="assets/documentsCover.png" alt="{{item.nome}}">
+                </a>
               </div>
             </div>
           </div>
