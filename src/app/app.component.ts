@@ -91,7 +91,7 @@ export class AppComponent {
     this.db.list('/' + this.atual).push({
       url: url,
       nome: fileUpload.name,
-      tipo: 'imagem'
+      tipo: fileUpload.type
     });
   }
 

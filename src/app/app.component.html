@@ -59,10 +59,10 @@
         </ng-container>
 
         <ng-container *ngFor="let item of (items | async)">
-          <div class="col-md-4" *ngIf="item.tipo == 'imagem'">
+          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg'">
             <div class="card mb-12 box-shadow">
               <div class="card-body">
-                <img class="card-img-top" src="{{item.url}}" alt="Card image cap">
+                <img class="card-img-top" src="{{item.url}}" alt="{{item.nome}}">
               </div>
             </div>
           </div>
