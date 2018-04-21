@@ -3,22 +3,11 @@
   <div class="navbar navbar-dark bg-dark box-shadow">
     <div class="container d-flex justify-content-between">
       <a href="#" class="navbar-brand d-flex align-items-center">
-        <!--<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>-->
         <strong>BUREAU</strong>
       </a>
-      <!--
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader"
-        aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapsed()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      -->
+
     </div>
   </div>
-  <!--
-  <div class="collapse bg-dark" id="navbarHeader" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
-
-  </div>
-  -->
 </header>
 
 <main role="main">
@@ -29,10 +18,6 @@
       <p class="lead text-muted">Projeto desenvolvido para população da base de dados do projeto bureau</p>
       <h4 class="card-text">Nível: {{nivel}}</h4>
 
-      <!--
-      <h4 class="card-text">{{breadcrumbVisible}}</h4>
-      -->
-
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item" *ngFor="let item of breadcrumbVisible">
@@ -41,57 +26,52 @@
         </ol>
       </nav>
 
-      <!-- <ul>
-        <li *ngFor="let todo of (items | async)" [class.done]="todo.done">
-         {{ todo | json }}
-          {{todo.payload.node_.children_.root_.key}}
-          {{todo.id}}
-        </li>
-      </ul>-->
-
-      <!-- 
-      <p>
-        <a href="#" class="btn btn-primary my-2">Main call to action</a>
-        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-      </p>
-      -->
     </div>
     <p></p>
 
 
   </section>
 
-
-
-
-
   <div class="album py-5 bg-light">
     <div class="container">
 
       <div class="row">
-        <div class="col-md-4" *ngFor="let item of (items | async)" (click)="afundar(item)" >
-          <div class="card mb-4 box-shadow" *ngIf="item.dado" style="cursor:pointer;">
-            <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
-            <div class="card-body">
-              <h4 class="card-text">{{item.dado}}</h4>
+        <ng-container *ngFor="let item of (items | async)">
+          <div class="col-md-4" *ngIf="item.dado" (click)="afundar(item)">
+            <div class="card mb-12 box-shadow" style="cursor:pointer;">
+              <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
+              <div class="card-body">
+                <h4 class="card-text">{{item.dado}}</h4>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
+
+        <ng-container *ngFor="let item of (items | async)">
+          <div class="col-md-4" *ngIf="item.tipo == 'Texto'">
+            <div class="card mb-12 box-shadow">
+              <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
+              <div class="card-body" *ngIf="item.tipo == 'Texto'">
+                <textarea class="form-control" disabled rows="3">{{item.valor}}</textarea>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngFor="let item of (items | async)">
+          <div class="col-md-4" *ngIf="item.tipo == 'imagem'">
+            <div class="card mb-12 box-shadow">
+              <div class="card-body">
+                <img class="card-img-top" src="{{item.url}}" alt="Card image cap">
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
 
       </div>
 
 
-      <div class="row">
-        <div class="col-md-4" *ngFor="let item of (items | async)" >
-          <div class="card mb-4 box-shadow" *ngIf="item.tipo">
-            <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
-            <div class="card-body" *ngIf="item.tipo == 'Texto'">
-              <textarea class="form-control" disabled rows="3" >{{item.valor}}</textarea>
-            </div>
-          </div>
-        </div>
-
-      </div>
 
 
       <div class="accordion" id="accordion" style="padding-top:150px">
@@ -154,21 +134,25 @@
             <h5 class="mb-0">
               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
                 aria-controls="collapseFour">
-                Inserir Imagem (AINDA NAO FUNCIONA)
+                Inserir Arquivos (Imagem, documentos, etc)
               </button>
             </h5>
           </div>
           <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div class="card-body">
-              <div class="col-sm-12" style="padding-top: 20px">
-                <input type="text" class="form-control col-sm-12" [(ngModel)]="txtTitulo" placeholder="Titulo">
+              <div class="form-group col-sm-12">
+                <input type="file" class="form-control-file" (change)="selectFile($event)">
               </div>
-              <div class="col-sm-12" style="padding-top: 20px">
-                <input type="text" class="form-control col-sm-12" [(ngModel)]="txtLink" placeholder="Link">
+
+
+              <div class="progress" style="width:400px">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                  aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                  {{progress.percentage}}%</div>
               </div>
 
               <div class="col-sm-12" style="padding-top: 20px">
-                <button type="button" class="btn btn-primary col-sm-12">
+                <button type="button" class="btn btn-primary col-sm-12" (click)="upload()">
                   Adicionar
                 </button>
               </div>
@@ -204,16 +188,6 @@
       </div>
 
     </div>
-
-
-
-
-
-
-
-
-
-
 
   </div>
 

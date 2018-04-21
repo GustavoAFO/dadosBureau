@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FirebaseConfig } from './../environments/firebase.config';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable'
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,10 @@ export class AppComponent {
   txtDado = '';
   chcFinal = false;
   txtInfo = '';
+  basePath = '/uploads';
+
+  selectedFiles: FileList;
+  progress: { percentage: number } = { percentage: 0 }
 
   coursesObservable: AngularFireList<any[]>;
 
@@ -44,20 +49,54 @@ export class AppComponent {
 
   }
 
-  /*
-  getCourses(listPath): AngularFireList<any[]> {
+  // ------------------------
 
-    // this.db.database.ref('/courses').once('value').then();
 
-    return this.db.list(listPath);
-
-  }*/
-
-  /*
-  getCoursesTeste(): AngularFireList<any[]> {
-    return this.db.list('/courses');
+  selectFile(event) {
+    this.progress.percentage = 0;
+    this.selectedFiles = event.target.files;
+    console.log(this.selectedFiles);
   }
-  */
+
+  pushFileToStorage(fileUpload: File, progress: { percentage: number }) {
+    const storageRef = firebase.storage().ref();
+    const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.name}`).put(fileUpload);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        // in progress
+        const snap = snapshot as firebase.storage.UploadTaskSnapshot
+        progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100)
+      },
+      (error) => {
+        // fail
+        console.log(error)
+      },
+      () => {
+        // console.log('está aqui');
+        // fileUpload.url = uploadTask.snapshot.downloadURL
+        // fileUpload.name = fileUpload.file.name
+        this.saveFileData(fileUpload, uploadTask.snapshot.downloadURL);
+      }
+    );
+  }
+
+  upload() {
+    const file = this.selectedFiles.item(0)
+    this.pushFileToStorage(file, this.progress);
+  }
+
+  private saveFileData(fileUpload: File, url) {
+    console.log('colocando no banco');
+    this.db.list('/' + this.atual).push({
+      url: url,
+      nome: fileUpload.name,
+      tipo: 'imagem'
+    });
+  }
+
+
+  // ---------------------
 
   getCourses(): Observable<any[]> {
     return this.db.list('/' + this.atual).snapshotChanges().map(actions => {
