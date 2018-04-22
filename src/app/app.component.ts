@@ -4,7 +4,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable'
 import * as firebase from 'firebase';
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
@@ -32,6 +32,7 @@ export class AppComponent {
   basePath = '/uploads';
   txtTitulo = '';
   txtLink = '';
+  aDeletar: { id: null };
 
   selectedFiles: FileList;
   progress: { percentage: number } = { percentage: 0 }
@@ -55,7 +56,7 @@ export class AppComponent {
 
 
     this.items.forEach(teste => {
-      console.log(teste);
+      // console.log(teste);
     });
 
 
@@ -63,6 +64,16 @@ export class AppComponent {
 
 
 
+  deletarItem() {
+    const itemsRef = this.db.list(this.breadcrumb + '/' + this.aDeletar.id);
+    itemsRef.remove();
+    // this.aDeletar = null;
+  }
+
+  selecionar(item) {
+    console.log(this.breadcrumb + '/' + item.id);
+    this.aDeletar = item;
+  }
 
   // ------------------------
 
