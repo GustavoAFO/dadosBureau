@@ -32,7 +32,7 @@ export class AppComponent {
   basePath = '/uploads';
   txtTitulo = '';
   txtLink = '';
-  aDeletar: { id: null };
+  aDeletar: { id: null, nome: null };
 
   selectedFiles: FileList;
   progress: { percentage: number } = { percentage: 0 }
@@ -55,14 +55,24 @@ export class AppComponent {
     this.items = this.getCourses();
 
 
+    /*
     this.items.forEach(teste => {
-      // console.log(teste);
+      console.log(teste);
     });
+    */
 
 
   }
 
-
+  deletarItemStorage() {
+    // removendo da storage
+    const storageRef = firebase.storage().ref();
+    const uploadTask = storageRef.child(`${this.basePath}/${this.aDeletar.nome}`).delete();
+    // console.log(`${this.basePath}/${this.aDeletar.nome}`);
+    // removendo da base
+    const itemsRef = this.db.list(this.breadcrumb + '/' + this.aDeletar.id);
+    itemsRef.remove();
+  }
 
   deletarItem() {
     const itemsRef = this.db.list(this.breadcrumb + '/' + this.aDeletar.id);
@@ -71,8 +81,10 @@ export class AppComponent {
   }
 
   selecionar(item) {
-    console.log(this.breadcrumb + '/' + item.id);
+    // console.log(this.breadcrumb + '/' + item.id);
     this.aDeletar = item;
+
+    console.log(item);
   }
 
   // ------------------------
