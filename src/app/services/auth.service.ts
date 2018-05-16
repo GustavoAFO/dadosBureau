@@ -13,8 +13,8 @@ export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
-  private userDatabaseCheck: Observable<any[]>;
-  private userDatabaseCheckDetails: any[] = null;
+  // private userDatabaseCheck: Observable<any[]>;
+  // private userDatabaseCheckDetails: any[] = null;
 
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private db: AngularFireDatabase) {
 
@@ -31,12 +31,12 @@ export class AuthService {
         if (user) {
           this.userDetails = user;
           console.log(this.userDetails);
+          this.checkUser();
         } else {
           this.userDetails = null;
         }
       }
     );
-
 
 
   }
@@ -53,46 +53,34 @@ export class AuthService {
 
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then((res => {
       // this.checkUser();
-
-      if (this.userDatabaseCheckDetails == null) {
-        console.log('NULO');
-      } else {
-        console.log('Nao nulo!');
-      }
+      this.router.navigate(['home']);
     }));
 
   }
 
   checkUser() {
 
-    this.userDatabaseCheck = this.getUsers();
+    const myRef = this.db.list('users/' + this.userDetails.uid).valueChanges();
 
-    /*
-    this.userDatabaseCheck.forEach((teste) => {
-      console.log(teste);
-    });*/
+    myRef.subscribe((busca) => {
+      if (busca.length > 0) {
+        // console.log(busca);
+        // console.log('Ok');
+        // this.router.navigate(['home']);
+        console.log(busca[0]['type']);
+        localStorage.setItem('user_type', busca[0]['type']);
 
-    this.userDatabaseCheck.subscribe((usercheck) => {
-      if (usercheck) {
-        this.userDatabaseCheckDetails = usercheck;
-        console.log('Aqui!');
-        console.log(this.userDatabaseCheckDetails);
+        // console.log(this.router.url);
+        if (this.router.url === '/login') {
+          this.router.navigate(['home']);
+        }
       } else {
-        this.userDatabaseCheckDetails = null;
+        // console.log('Nao ok');
+        this.logout();
       }
     });
 
-    // console.log(this.userDatabaseCheckDetails.length);
-  }
-
-  getUsers(): Observable<any[]> {
-    return this.db.list('users/' + this.userDetails.uid).snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.val();
-        const id = a.payload.key;
-        return { id, ...data };
-      });
-    });
+    // console.log(myRef);
   }
 
   isLoggedIn() {
@@ -106,6 +94,22 @@ export class AuthService {
   logout() {
     this._firebaseAuth.auth.signOut()
       .then((res) => this.router.navigate(['/']));
+  }
+
+
+  createUserEmailPassword(email, password, type) {
+    this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then((res => {
+
+      console.log(res);
+
+      this.db.list('/users/' + res.uid).push({
+        email: email,
+        type: type
+      }).then((resp) => {
+        // this.router.navigate(['home']);
+      });
+
+    })).catch((err) => console.log('error: ' + err));
   }
 
 }
