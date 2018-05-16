@@ -119,6 +119,12 @@ export class AuthService {
     })).catch((err) => console.log('error: ' + err));
   }
 
+  updateUserPassword(newPassword) {
+    this.userDetails.updatePassword(newPassword).then((res) => {
+      // do stuff *meme*
+    });
+  }
+
 }
 
 
