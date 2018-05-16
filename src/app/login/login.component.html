@@ -1,0 +1,18 @@
+<form class="form-signin">
+  <img class="col-md-4 offset-md-4" src="https://myslu.slu.edu/res/images/cas-padlock-icon.png" alt="" width="72" >
+  <h1 class="h3 mb-3 font-weight-normal">Por favor, informe seu e-mail e senha</h1>
+  <label for="inputEmail" class="sr-only">E-mail:</label>
+  <input [(ngModel)]="user.email" name="email" type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+  <label for="inputPassword"  class="sr-only" >Senha:</label>
+  <input type="password" id="inputSenha"[(ngModel)]="user.password" name="password"  class="form-control" placeholder="Senha" required>
+  <!--
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Lembrar de mim
+    </label>
+  </div>
+  -->
+  <button class="btn btn-lg btn-primary btn-block" (click)="loginWithEmail()" type="submit">Entrar</button>
+  <button (click)="loginWithGoogle()" class="btn btn-lg btn-primary btn-block" style="background: url(assets/google.png);background-size: cover;height:50px" type="submit"></button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
+</form>

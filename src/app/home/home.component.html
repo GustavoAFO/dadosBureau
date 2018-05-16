@@ -1,0 +1,298 @@
+<header>
+
+  <div class="navbar navbar-dark bg-dark box-shadow">
+    <div class="container d-flex justify-content-between">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <strong>BUREAU</strong>
+      </a>
+
+    </div>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" (click)="logout()" href="#">Logout
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main role="main">
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Projeto Bureau</h1>
+      <p class="lead text-muted">Projeto desenvolvido para população da base de dados do projeto bureau</p>
+      <h4 class="card-text">Nível: {{nivel}}</h4>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" *ngFor="let item of breadcrumbVisible">
+            <a (click)="abrir(item)">{{item.nome}}</a>
+          </li>
+        </ol>
+      </nav>
+
+    </div>
+    <p></p>
+
+
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+
+      <!-- Modal Deletar info comum-->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Deletar Registro?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!--
+            <div class="modal-body">
+            </div>
+            -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+              <button type="button" class="btn btn-primary" (click)="deletarItem()" data-dismiss="modal">SIM</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Deletar info anexada-->
+      <div class="modal fade" id="deletarInfoAnexadaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Deletar Registro?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              O arquivo anexado também será deletado da base de dados!
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+              <button type="button" class="btn btn-primary" (click)="deletarItemStorage()" data-dismiss="modal">SIM</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+        <ng-container *ngFor="let item of (items | async)">
+          <div class="col-md-4" *ngIf="item.dado" (click)="afundar(item)">
+            <div class="card mb-12 box-shadow" style="cursor:pointer;">
+              <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
+              <div class="card-body">
+                <h4 class="card-text">{{item.dado}}</h4>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-4" *ngIf="item.tipo == 'Texto'">
+            <div class="card mb-12 box-shadow">
+              <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
+              <div class="card-body" *ngIf="item.tipo == 'Texto'" style="min-height: 430px;">
+                <button type="button" (click)="selecionar(item)" class="close" aria-label="Close" data-toggle="modal" data-target="#exampleModal"
+                  style="padding-bottom: 10px;position: absolute;top: -5px;right: 0px;cursor:pointer;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+                <textarea class="form-control" disabled rows="3" style="height: 358px;">{{item.valor}}</textarea>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg'">
+            <div class="card mb-12 box-shadow">
+              <div class="card-body" style="min-height: 430px;">
+                <button type="button" (click)="selecionar(item)" class="close" aria-label="Close" data-toggle="modal" data-target="#deletarInfoAnexadaModal"
+                  style="padding-bottom: 10px;position: absolute;top: -5px;right: 0px;cursor:pointer;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <img class="card-img-top" src="{{item.url}}" alt="{{item.nome}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4" *ngIf="item.tipo == 'application/pdf'">
+            <div class="card mb-12 box-shadow">
+              <div class="card-body" style="min-height: 430px;">
+                <button type="button" (click)="selecionar(item)" class="close" aria-label="Close" data-toggle="modal" data-target="#deletarInfoAnexadaModal"
+                  style="padding-bottom: 10px;position: absolute;top: -5px;right: 0px;cursor:pointer;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <a href="{{item.url}}">
+                  <h4 class="card-text">{{item.nome}}</h4>
+                  <img class="card-img-top" src="assets/documentsCover.png" alt="{{item.nome}}">
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4" *ngIf="item.tipo == 'Video'">
+            <div class="card mb-12 box-shadow">
+              <div class="card-body" style="min-height: 430px;">
+                <button type="button" (click)="selecionar(item)" class="close" aria-label="Close" data-toggle="modal" data-target="#exampleModal"
+                  style="padding-bottom: 10px;position: absolute;top: -5px;right: 0px;cursor:pointer;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="card-text">{{item.titulo}}</h4>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" [src]="item.embed | safe" allowfullscreen></iframe>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+
+      </div>
+
+
+
+
+      <div class="accordion" id="accordion" style="padding-top:150px">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Inserir novo item
+              </button>
+            </h5>
+          </div>
+
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="form-group form-check col-sm-12">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="chcFinal">
+                <label class="form-check-label" for="exampleCheck1">Final</label>
+              </div>
+              <div class="col-sm-12" style="padding-top: 20px">
+                <input type="text" class="form-control col-sm-12" [(ngModel)]="txtDado" placeholder="Nome" aria-label="Pokemon">
+              </div>
+
+              <div class="col-sm-12" style="padding-top: 20px">
+                <button type="button" class="btn btn-primary col-sm-12" (click)="addCourse()">
+                  Adicionar
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                aria-controls="collapseTwo">
+                Inserir Informações
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+
+              <div class="form-group col-sm-12">
+                <label for="exampleFormControlTextarea1">Informação</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="txtInfo"></textarea>
+              </div>
+
+
+              <div class="col-sm-12" style="padding-top: 20px">
+                <button type="button" class="btn btn-primary col-sm-12" (click)="addInfoText()">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                aria-controls="collapseFour">
+                Inserir Arquivos (Imagens, documentos, etc)
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+            <div class="card-body">
+              <div class="form-group col-sm-12">
+                <input type="file" class="form-control-file" (change)="selectFile($event)">
+              </div>
+
+
+              <div class="progress" style="width:400px">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                  aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                  {{progress.percentage}}%</div>
+              </div>
+
+              <div class="col-sm-12" style="padding-top: 20px">
+                <button type="button" class="btn btn-primary col-sm-12" (click)="upload()">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                aria-controls="collapseThree">
+                Inserir Videos
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+              <div class="col-sm-12" style="padding-top: 20px">
+                <input type="text" class="form-control col-sm-12" [(ngModel)]="txtTitulo" placeholder="Titulo">
+              </div>
+              <div class="col-sm-12" style="padding-top: 20px">
+                <input type="text" class="form-control col-sm-12" [(ngModel)]="txtLink" placeholder="Link">
+              </div>
+
+              <div class="col-sm-12" style="padding-top: 20px">
+                <button type="button" class="btn btn-primary col-sm-12" (click)="addInfoVideo()">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Voltar ao topo</a>
+    </p>
+
+  </div>
+</footer>
