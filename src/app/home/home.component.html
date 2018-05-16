@@ -1,20 +1,24 @@
 <header>
 
-  <div class="navbar navbar-dark bg-dark box-shadow">
+  <div class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container d-flex justify-content-between">
       <a href="#" class="navbar-brand d-flex align-items-center">
         <strong>BUREAU</strong>
       </a>
 
-      
+
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link pointer"> Tipo de Usuário: {{auth.busca.type}}
+          </a>
+        </li>
         <li class="nav-item active">
           <a class="nav-link pointer">Cadastro de Usuários
             <span class="sr-only">(current)</span>
           </a>
         </li>
       </ul>
-      
+
 
     </div>
 

@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { AuthService } from '../services/auth.service';
 
+// PIPE PARA O EMBED DOS VIDEOS
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }

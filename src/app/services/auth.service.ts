@@ -16,6 +16,8 @@ export class AuthService {
   // private userDatabaseCheck: Observable<any[]>;
   // private userDatabaseCheckDetails: any[] = null;
 
+  public busca: any;
+
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private db: AngularFireDatabase) {
 
     /*
@@ -52,13 +54,17 @@ export class AuthService {
     const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then((res => {
-      // this.checkUser();
-      this.router.navigate(['home']);
+
+      this.router.navigate(['home']); // talvez nao precise desse kkkkk
     }));
 
   }
 
   checkUser() {
+    // check se o user existe na base de dados (chamado quando o auth é positivo), se nao existir faz o logoff do auth
+    console.log('checando user');
+
+    // Verificar token para continuar logado
 
     const myRef = this.db.list('users/' + this.userDetails.uid).valueChanges();
 
@@ -67,6 +73,7 @@ export class AuthService {
         // console.log(busca);
         // console.log('Ok');
         // this.router.navigate(['home']);
+        this.busca = busca[0];
         console.log(busca[0]['type']);
         localStorage.setItem('user_type', busca[0]['type']);
 
