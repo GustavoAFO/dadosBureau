@@ -8,8 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
 
-import { AppComponent, SafePipe } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { AppComponent } from './app.component';
+import { HomeComponent, SafePipe } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';

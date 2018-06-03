@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 // import { FirebaseConfig } from './../environments/firebase.config';
 // import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 // import { Observable } from 'rxjs/Observable'
-import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+/* import { Pipe, PipeTransform } from '@angular/core'; */
+/* import { DomSanitizer } from '@angular/platform-browser'; */
 import { AuthService } from './services/auth.service';
 
-@Pipe({ name: 'safe' })
+/* @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-}
+} */
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ export class SafePipe implements PipeTransform {
 export class AppComponent {
   title = 'app';
 
-  constructor(private auth: AuthService) {
+  constructor(public auth: AuthService) {
   }
 
   logout() {

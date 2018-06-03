@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { AuthService } from '../services/auth.service';
 
+import 'rxjs/add/operator/map';
+
 // PIPE PARA O EMBED DOS VIDEOS
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
@@ -42,7 +44,7 @@ export class HomeComponent implements OnInit {
 
   coursesObservable: AngularFireList<any[]>;
 
-  constructor(private db: AngularFireDatabase, private auth: AuthService) {
+  constructor(private db: AngularFireDatabase, public auth: AuthService) {
 
     // this.coursesObservable = this.getCourses('/courses');
     // this.coursesObservable = this.getCoursesTeste();
