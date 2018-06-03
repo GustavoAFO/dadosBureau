@@ -4,7 +4,7 @@ import { FirebaseConfig } from './../environments/firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
 
@@ -13,13 +13,17 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SafePipe,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CadastroUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,8 @@ import { AuthGuardService } from './services/auth-guard.service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]

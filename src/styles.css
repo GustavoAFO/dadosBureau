@@ -2,3 +2,13 @@
 .pointer {
     cursor: pointer !important;
 }
+
+.breadcrumb{
+    cursor: pointer;
+    background-color: white;
+    font-weight: bold;
+}
+
+.cursor-default{
+    cursor: default;
+}

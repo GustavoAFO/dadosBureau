@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 // import { Observable } from 'rxjs/Observable'
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthService } from './services/auth.service';
 
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
@@ -21,6 +22,11 @@ export class SafePipe implements PipeTransform {
 export class AppComponent {
   title = 'app';
 
-  constructor() {
+  constructor(private auth: AuthService) {
   }
+
+  logout() {
+    this.auth.logout();
+  }
+
 }

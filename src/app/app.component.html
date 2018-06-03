@@ -1,1 +1,70 @@
-<router-outlet></router-outlet>
+<header>
+
+    <div class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" *ngIf="auth.busca">
+
+        <div class="container d-flex justify-content-between">
+            <a [routerLink]="['/home']" class="navbar-brand d-flex align-items-center pointer">
+                <strong>BUREAU</strong>
+            </a>
+            <button class="navbar-toggler pointer" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" *ngIf="auth.busca && auth.busca.type">
+                        <a class="nav-link cursor-default"> Tipo de Usuário: {{auth.busca.type}}
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active" *ngIf="auth.busca && auth.busca.type == 'adm'">
+                        <a [routerLink]="['/cadastro-usuario']" class="nav-link pointer">Cadastro de Usuários
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link pointer">Quem somos
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" (click)="logout()" href="#">Logout
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</header>
+
+<div class="body" style="margin-top: 60px;">
+    <router-outlet></router-outlet>
+</div>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Voltar ao topo</a>
+        </p>
+
+    </div>
+</footer>

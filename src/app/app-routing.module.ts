@@ -6,11 +6,14 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
+import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component'
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   // { path: 'detail/:id', component: HeroDetailComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] }
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: 'cadastro-usuario', component: CadastroUsuarioComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({

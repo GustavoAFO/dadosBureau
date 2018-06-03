@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row col-sm-12 jumbotron align-items-center justify-content-center">
+    <form [formGroup]="cadastroForm">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email</label>
+        <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@example.com">
+        <span style="color: red;" *ngIf="!cadastroForm.get('email').valid && cadastroForm.get('email').touched" class="help-block">
+          Por Favor, Digite o email
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Senha</label>
+        <input type="password" formControlName="senha" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <span style="color: red;" *ngIf="!cadastroForm.get('senha').valid && cadastroForm.get('senha').touched" class="help-block">
+          Por Favor, Digite a senha
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Tipo de Usuário</label>
+        <select class="form-control" formControlName="tipo" id="exampleFormControlSelect1">
+          <option value="adm">Administrador</option>
+          <option value="grc">Gerencial</option>
+          <option value="cm">Comum</option>
+        </select>
+        <span style="color: red;" *ngIf="!cadastroForm.get('tipo').valid && cadastroForm.get('tipo').touched" class="help-block">
+            Por Favor, Selecione um tipo
+          </span>
+      </div>
+      <button type="submit" (click)="cadastrarUsuario()" class="btn btn-primary">Cadastrar</button>
+      <span style="color: red;" *ngIf="error" class="help-block"> {{error}}</span>
+    </form>
+  </div>
+</div>

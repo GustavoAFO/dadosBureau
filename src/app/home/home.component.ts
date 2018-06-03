@@ -219,4 +219,9 @@ export class HomeComponent implements OnInit {
     this.auth.logout();
   }
 
+
+  /* collapseAllOptions() {
+    $('.multi-collapse').collapse();
+  } */
+
 }

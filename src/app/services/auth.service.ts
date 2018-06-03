@@ -32,8 +32,20 @@ export class AuthService {
       (user) => {
         if (user) {
           this.userDetails = user;
-          console.log(this.userDetails);
+          // console.log(this.userDetails);
+          // console.log(user);
+          // console.log(user.providerData[0].providerId);
+
           this.checkUser();
+
+          /* if (user.providerData[0].providerId !== 'google.com') {
+            this.checkUser();
+          } else {
+            if (this.router.url === '/login') {
+              this.router.navigate(['home']);
+            }
+          } */
+
         } else {
           this.userDetails = null;
         }
@@ -75,14 +87,25 @@ export class AuthService {
         // this.router.navigate(['home']);
         this.busca = busca[0];
         console.log(busca[0]['type']);
-        localStorage.setItem('user_type', busca[0]['type']);
+        // localStorage.setItem('user_type', busca[0]['type']);
 
         // console.log(this.router.url);
+
+        console.log('user autenticado');
+
         if (this.router.url === '/login') {
           this.router.navigate(['home']);
         }
+      } else if (this.userDetails.providerData[0].providerId === 'google.com') {
+        console.log('user anon');
+
+        if (this.router.url === '/login') {
+          this.router.navigate(['home']);
+        }
+
       } else {
-        // console.log('Nao ok');
+
+        console.log('nao autenticado nem anon, fazendo logout');
         this.logout();
       }
     });
@@ -104,10 +127,10 @@ export class AuthService {
   }
 
 
-  createUserEmailPassword(email, password, type) {
-    this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then((res => {
+  createUserEmailPassword(email, password, type): any {
+    return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then((res => {
 
-      console.log(res);
+      // console.log(res);
 
       this.db.list('/users/' + res.uid).push({
         email: email,
@@ -116,7 +139,10 @@ export class AuthService {
         // this.router.navigate(['home']);
       });
 
-    })).catch((err) => console.log('error: ' + err));
+    })).catch((err) => {
+      // console.log('error: ' + err)
+      return err.message;
+    });
   }
 
   updateUserPassword(newPassword) {
