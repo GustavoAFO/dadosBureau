@@ -195,10 +195,10 @@
             aria-controls="multiCollapseExample1"> Inserir novo PROBLEMA</button>
         </div>
 
-        <div class="row col-sm-12 form-group">
-            <button class="btn btn-success col-sm-12 pointer" data-toggle="collapse" data-target="#addSolucao, .show" type="button" aria-expanded="false"
-              aria-controls="multiCollapseExample1"> Inserir nova SOLUÇÃO</button>
-          </div>
+        <!-- <div class="row col-sm-12 form-group">
+          <button class="btn btn-success col-sm-12 pointer" data-toggle="collapse" data-target="#addSolucao, .show" type="button" aria-expanded="false"
+            aria-controls="multiCollapseExample1"> Inserir nova SOLUÇÃO</button>
+        </div> -->
 
         <div class="row">
 
@@ -221,6 +221,26 @@
               </div>
             </div>
           </div>
+
+          <div class="col-sm-12">
+            <div class="collapse multi-collapse" id="addSolucao" data-parent="#accordion">
+              <div class="card card-body">
+
+                <div class="col-sm-12" style="padding-top: 20px">
+                  <p>Descrição do problema</p>
+                  <input type="text" class="form-control col-sm-12" [(ngModel)]="txtProblema" placeholder="Problema" aria-label="Pokemon">
+                </div>
+
+                <div class="col-sm-12" style="padding-top: 20px">
+                  <button type="button" class="btn btn-primary col-sm-12" (click)="addSolucao()">
+                    Adicionar Nova Solução
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
 
           <div class="col-sm-12">
             <div class="collapse multi-collapse" id="addProblema" data-parent="#accordion">

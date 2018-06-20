@@ -130,9 +130,17 @@ export class AuthService {
   createUserEmailPassword(email, password, type): any {
     return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then((res => {
 
-      // console.log(res);
+      //console.log(res);
+      var uid;
 
-      this.db.list('/users/' + res.uid).push({
+      if(res.user.uid){
+        uid = res.user.uid
+      }
+      else if(res.uid){
+        uid = res.uid
+      }
+
+      this.db.list('/users/' + uid + "/").push({
         email: email,
         type: type
       }).then((resp) => {
