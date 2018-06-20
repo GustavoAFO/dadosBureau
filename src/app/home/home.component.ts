@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   txtTitulo = '';
   txtLink = '';
   aDeletar: { id: null, nome: null };
+  txtProblema;
 
   selectedFiles: FileList;
   progress: { percentage: number } = { percentage: 0 }
@@ -150,10 +151,39 @@ export class HomeComponent implements OnInit {
     });
   }
 
+
+  addProblema() {
+    this.db.list('/' + this.atual).push({
+      nome: this.txtProblema,
+      caminho: this.atual,
+      tipo: 'prob'
+    }).then(id =>{
+      console.log(id);
+
+      var lenght = id.path.pieces_.length;
+      var ele = id.path.pieces_[lenght -1];
+      var pai = id.path.pieces_[lenght -2];
+
+      this.db.list('/problemas/'+pai).push({
+        nome: this.txtProblema,
+        caminho: this.atual,
+        seuId: ele
+      })
+    });
+
+    /* this.db.list('/problemas').push({
+      nome: this.txtProblema,
+      caminho: this.atual
+    }); */
+    //console.log(this.atual);
+
+  }
+
   addCourse() {
     this.db.list('/' + this.atual).push({
       dado: this.txtDado,
-      final: this.chcFinal
+      final: this.chcFinal,
+      tipo: 'normal'
     });
   }
 
@@ -179,14 +209,21 @@ export class HomeComponent implements OnInit {
   }
 
   afundar(item) {
+    console.log(item);
     this.txtDado = '';
 
     this.breadcrumb = this.breadcrumb + '/' + item.id;
     // this.breadcrumbVisible = this.breadcrumbVisible + '/' + item.dado;
+    var cor;
+    if(!item.dado){
+      item.dado = item.nome;
+      cor = 'red';
+    }
 
     this.breadcrumbVisible.push({
       'nome': item.dado,
-      'key': item.id
+      'key': item.id,
+      'cor': cor
     });
 
     console.log(item);

@@ -9,7 +9,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item" *ngFor="let item of breadcrumbVisible">
-            <a (click)="abrir(item)">{{item.nome}}</a>
+            <a (click)="abrir(item)" [ngClass]="{'color-red':item.cor == 'red'}">{{item.nome}}</a>
           </li>
         </ol>
       </nav>
@@ -142,6 +142,22 @@
               </div>
             </div>
           </div>
+
+
+
+
+
+          <div class="col-md-4" *ngIf="item.tipo == 'prob'" style="padding-top:60px;" (click)="afundar(item)">
+            <div class="card mb-12 box-shadow" style="cursor:pointer;background-color: #ff0000b3;">
+              <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
+              <div class="card-body">
+                <h4 class="card-text">{{item.nome}}</h4>
+              </div>
+            </div>
+          </div>
+
+
+
         </ng-container>
 
 
@@ -174,14 +190,25 @@
           </div>
         </div>
 
+        <div class="row col-sm-12 form-group">
+          <button class="btn btn-danger col-sm-12 pointer" data-toggle="collapse" data-target="#addProblema, .show" type="button" aria-expanded="false"
+            aria-controls="multiCollapseExample1"> Inserir novo PROBLEMA</button>
+        </div>
+
+        <div class="row col-sm-12 form-group">
+            <button class="btn btn-success col-sm-12 pointer" data-toggle="collapse" data-target="#addSolucao, .show" type="button" aria-expanded="false"
+              aria-controls="multiCollapseExample1"> Inserir nova SOLUÇÃO</button>
+          </div>
+
         <div class="row">
+
           <div class="col-sm-12">
             <div class="collapse multi-collapse" id="multiCollapseExample1" data-parent="#accordion">
               <div class="card card-body">
                 <!-- <div class="form-group form-check col-sm-12">
-                <input type="checkbox" class="form-check-input" [(ngModel)]="chcFinal">
-                <label class="form-check-label" for="exampleCheck1">Final</label>
-              </div> -->
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="chcFinal">
+                    <label class="form-check-label" for="exampleCheck1">Final</label>
+                  </div> -->
                 <div class="col-sm-12" style="padding-top: 20px">
                   <input type="text" class="form-control col-sm-12" [(ngModel)]="txtDado" placeholder="Nome" aria-label="Pokemon">
                 </div>
@@ -189,6 +216,24 @@
                 <div class="col-sm-12" style="padding-top: 20px">
                   <button type="button" class="btn btn-primary col-sm-12" (click)="addCourse()">
                     Adicionar Novo Filho
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="collapse multi-collapse" id="addProblema" data-parent="#accordion">
+              <div class="card card-body">
+
+                <div class="col-sm-12" style="padding-top: 20px">
+                  <p>Descrição do problema</p>
+                  <input type="text" class="form-control col-sm-12" [(ngModel)]="txtProblema" placeholder="Problema" aria-label="Pokemon">
+                </div>
+
+                <div class="col-sm-12" style="padding-top: 20px">
+                  <button type="button" class="btn btn-primary col-sm-12" (click)="addProblema()">
+                    Adicionar Novo Problema
                   </button>
                 </div>
               </div>
@@ -384,4 +429,3 @@
   </div>
 
 </main>
-
