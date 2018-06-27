@@ -99,7 +99,8 @@
           </div>
 
 
-          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg'">
+          <div class="col-md-4" *ngIf="item.tipo == 'image/jpeg' || item.tipo == 'image/png'">
+
             <div class="card mb-12 box-shadow">
               <div class="card-body" style="min-height: 430px;">
                 <button type="button" (click)="selecionar(item)" class="close" aria-label="Close" data-toggle="modal" data-target="#deletarInfoAnexadaModal"
@@ -107,6 +108,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <img class="card-img-top" src="{{item.url}}" alt="{{item.nome}}">
+
               </div>
             </div>
           </div>
@@ -147,6 +149,25 @@
 
 
 
+
+
+
+
+
+
+
+
+
+        </ng-container>
+      </div>
+
+
+
+
+      <!-- PROBLEMAS ---------------------------------------------------------------------- -->
+
+      <div class="row">
+        <ng-container *ngFor="let item of (items | async)">
           <div class="col-md-4" *ngIf="item.tipo == 'prob'" style="padding-top:60px;" (click)="afundar(item)">
             <div class="card mb-12 box-shadow" style="cursor:pointer;background-color: #ff0000b3;">
               <!--<img class="card-img-top" src="{{result.sprites.front_default}}" alt="Card image cap">-->
@@ -155,13 +176,9 @@
               </div>
             </div>
           </div>
-
-
-
         </ng-container>
-
-
       </div>
+
 
 
       <!-- INSERCAO DE DADOS -->

@@ -103,7 +103,9 @@ export class HomeComponent implements OnInit {
 
   pushFileToStorage(fileUpload: File, progress: { percentage: number }) {
     const storageRef = firebase.storage().ref();
-    const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.name}`).put(fileUpload);
+    const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.name}`).put(fileUpload);/* .then(res =>{
+      console.log(res.downloadURL);
+    }); */
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
@@ -116,12 +118,25 @@ export class HomeComponent implements OnInit {
         console.log(error)
       },
       () => {
+        //console.log(reff);
         // console.log('está aqui');
         // fileUpload.url = uploadTask.snapshot.downloadURL
         // fileUpload.name = fileUpload.file.name
-        this.saveFileData(fileUpload, uploadTask.snapshot.downloadURL);
+        //console.log(uploadTask);
+        //console.log(uploadTask.snapshot);
+        //console.log(this.basePath+"/"+fileUpload.name);
+        //console.log(uploadTask.snapshot.ref.getDownloadURL);
+        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+          //console.log('File available at', downloadURL);
+          this.saveFileData(fileUpload, downloadURL);
+        });
+        //this.saveFileData(fileUpload, uploadTask.snapshot.downloadURL);
       }
     );
+
+    /* uploadTask.on(firebase.storage.TaskState.SUCCESS, (ref) =>{
+      console.log(ref);
+    }) */
   }
 
   upload() {
@@ -131,6 +146,8 @@ export class HomeComponent implements OnInit {
 
   private saveFileData(fileUpload: File, url) {
     console.log('colocando no banco');
+    console.log(this.atual);
+    console.log(url);
     this.db.list('/' + this.atual).push({
       url: url,
       nome: fileUpload.name,
@@ -157,14 +174,14 @@ export class HomeComponent implements OnInit {
       nome: this.txtProblema,
       caminho: this.atual,
       tipo: 'prob'
-    }).then(id =>{
+    }).then(id => {
       console.log(id);
 
       var lenght = id.path.pieces_.length;
-      var ele = id.path.pieces_[lenght -1];
-      var pai = id.path.pieces_[lenght -2];
+      var ele = id.path.pieces_[lenght - 1];
+      var pai = id.path.pieces_[lenght - 2];
 
-      this.db.list('/problemas/'+pai).push({
+      this.db.list('/problemas/' + pai).push({
         nome: this.txtProblema,
         caminho: this.atual,
         seuId: ele
@@ -215,7 +232,7 @@ export class HomeComponent implements OnInit {
     this.breadcrumb = this.breadcrumb + '/' + item.id;
     // this.breadcrumbVisible = this.breadcrumbVisible + '/' + item.dado;
     var cor;
-    if(!item.dado){
+    if (!item.dado) {
       item.dado = item.nome;
       cor = 'red';
     }
