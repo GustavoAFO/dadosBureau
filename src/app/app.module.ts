@@ -16,7 +16,6 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

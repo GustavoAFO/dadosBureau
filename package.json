@@ -24,7 +24,7 @@
     "angularfire2": "5.0.0-rc.10",
     "bootstrap": "4.1.1",
     "core-js": "^2.4.1",
-    "firebase": "^5.0.4",
+    "firebase": "^5.1.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "rxjs": "^6.2.0",

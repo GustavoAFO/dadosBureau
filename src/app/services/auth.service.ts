@@ -136,9 +136,9 @@ export class AuthService {
       if(res.user.uid){
         uid = res.user.uid
       }
-      else if(res.uid){
+      /* else if(res.uid){
         uid = res.uid
-      }
+      } */
 
       this.db.list('/users/' + uid + "/").push({
         email: email,
